@@ -25,7 +25,7 @@ const Home: React.FC = () => {
       )}
       {/* Link to the new Ahref Kd Api page */}
       <div className="mt-4 text-center">
-        <Link href="/ahrefKdApi" passHref>
+        <Link href="/ahref" passHref>
           <a className="text-blue-600">Go to Ahref Kd Api</a>
         </Link>
       </div>
