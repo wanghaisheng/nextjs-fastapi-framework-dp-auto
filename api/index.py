@@ -104,7 +104,7 @@ def delete_todo_item(todo_id: int):
     return {"error": "Todo item not found"}
 
 
-@app.get("/ahref/kd/{keyword}")
+@app.get("/api/ahref/kd/{keyword}")
 async def getAhrefKD(keyword: str):
     path = "/tmp/chromium"
     cloudflare_bypass = None
