@@ -1,19 +1,21 @@
 // app/ahrefKdApi.tsx
 import React, { useState } from 'react';
 
-const AhrefKdApi = () => {
+const Ahref = () => {
   const [keywords, setKeywords] = useState('');
-
+const URL = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
+  : "http://localhost:3000/api";
   // Example of using useEffect to make an API call on mount, if needed
   React.useEffect(() => {
     // You can perform API calls or other effects here
   }, []);
-
+        
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/ahref/kd', {
+      const response = await fetch(`${URL}/api/ahref/kd`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,4 +64,4 @@ const AhrefKdApi = () => {
   );
 };
 
-export default AhrefKdApi;
+export default Ahref;
