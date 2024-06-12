@@ -23,10 +23,6 @@ const Home: React.FC = () => {
       ) : (
         todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       )}
-    </div>
-    <div className="container mx-auto max-w-md p-4">
-      {/* ... your JSX for TodoForm and TodoItems */}
-      
       {/* Link to the new Ahref Kd Api page */}
       <div className="mt-4 text-center">
         <Link href="/ahrefKdApi" passHref>
@@ -35,8 +31,6 @@ const Home: React.FC = () => {
       </div>
     </div>    
   );
-
-};
 };
 
 export default Home;
