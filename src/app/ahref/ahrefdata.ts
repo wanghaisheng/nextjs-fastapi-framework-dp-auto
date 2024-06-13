@@ -33,10 +33,10 @@ export const useAhrefsStore = create<AhrefsState>((set) => ({
 
                 } catch (error) { // Type the error as 'unknown' and cast when using properties
                         if (error instanceof Error) {
-                                set((state) => ({ ahrefError: error.message }))
+                                console.error("Error AhrefsData:", error)
                         } else {
                                 // Handle the case where error is not an instance of Error
-                                set((state) => ({ ahrefError: 'An unknown error occurred' }))
+                                console.error("Error AhrefsData :", error)
                         }
 
                 }
