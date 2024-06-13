@@ -22,7 +22,7 @@ export const useAhrefsStore = create<AhrefsState>((set) => ({
         // Define the fetchAhrefs action correctly
         async fetchAhrefs(keywords: string) {
                 try {
-                        const response = await fetch(`${URL}/api/ahref/kd`, {
+                        const response = await fetch(`${URL}/ahref/kd`, {
                                 method: 'POST',
                                 headers: {
                                         'Content-Type': 'application/json',
