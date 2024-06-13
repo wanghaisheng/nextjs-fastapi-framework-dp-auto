@@ -1,4 +1,5 @@
 import { create } from "zustand"
+
 type Todo = {
   id: number
   title: string
@@ -16,45 +17,12 @@ type TodoStore = {
   updateTodo: (updatedTodo: Todo) => void
   deleteTodo: (id: number) => void
 }
-// Add this to your existing type definitions
-// This could be in a types file or at the top of your store file
-type AhrefsData = {
-  keyword: string
-  kd: number
-  des: string
-}
-type AhrefsState = {
-  ahrefData: AhrefsData[]
-  ahrefError: string | null
-  fetchAhrefsData: (keywords: string) => void
-}
 
 const URL = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
   : "http://localhost:3000/api"
 
-export const useStore = create<TodoStore & AhrefsState>((set) => ({
-  ahrefData: [],
-  ahrefError: null,
-
-  async fetchAhrefs(keywords: string) {
-    try {
-      const response = await fetch(`${URL}/api/ahref/kd`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ keywords }),
-      })
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const data: AhrefsData[] = await response.json()
-      set((state) => ({ ahrefData: data }))
-    } catch (error) {
-      console.error("Error fetching todos:", error)
-    }
-  },
+export const useStore = create<TodoStore>((set) => ({
   todos: [],
   fetchTodos: async () => {
     try {
