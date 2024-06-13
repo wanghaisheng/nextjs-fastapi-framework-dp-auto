@@ -9,6 +9,7 @@ import Link from 'next/link'; // Import the Link component
 const Home: React.FC = () => {
   const todos = useStore((state) => state.todos);
   const fetchTodos = useStore((state) => state.fetchTodos);
+  const { ahrefData, ahrefError, fetchAhrefs } = useStore();
 
   useEffect(() => {
     fetchTodos();

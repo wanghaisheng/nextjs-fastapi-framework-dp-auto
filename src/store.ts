@@ -52,7 +52,7 @@ export const useStore = create<TodoStore & AhrefsState>((set) => ({
       const data: AhrefsData[] = await response.json()
       set((state) => ({ ahrefData: data }))
     } catch (error) {
-      set((state) => ({ ahrefError: error.message }))
+      console.error("Error fetching todos:", error)
     }
   },
   todos: [],
