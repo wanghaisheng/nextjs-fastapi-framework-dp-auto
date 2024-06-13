@@ -9,8 +9,11 @@ import os
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 origins = [
-    "http://localhost:3000",
+    "*",
     "http://127.0.0.1:3000",
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "https://nextjs-fastapi-framework-dp-auto.vercel.app/",
 ]
 
 app.add_middleware(
