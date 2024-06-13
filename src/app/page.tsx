@@ -23,12 +23,13 @@ const Home: React.FC = () => {
       ) : (
         todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       )}
-    </div>
 
-    <div><h1>ahref</>
-    
-            <Link href="/ahref">Settings</Link>
-</div>
+      <div>
+        <h1>ahref</h1>
+
+        <Link href="/ahref">Settings</Link>
+      </div>
+    </div>
   );
 };
 
