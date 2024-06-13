@@ -3,31 +3,24 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from .cf_bypass import CloudflareBypass
 import os
+from .cf_bypass import CloudflareBypass
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
-
-origins = [
-    "*",
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-    "http://localhost:8000",
-    "https://nextjs-fastapi-framework-dp-auto.vercel.app/",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 @app.get("/api/healthchecker")
 def healthchecker():
     return {"status": "success", "message": "Integrate FastAPI Framework with Next.js"}
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class TodoCreate(BaseModel):
@@ -114,7 +107,7 @@ def delete_todo_item(todo_id: int):
 @app.get("/api/ahref/kd/{keyword}")
 async def getAhrefKD(keyword: str):
     path = "/tmp/chromium"
-    cloudflare_bypass = None
+
     # Try each path in sequence until a valid one is found
 
     # Check if the path exists
@@ -129,14 +122,12 @@ async def getAhrefKD(keyword: str):
         # Print all files
         for file in files:
             print(file)
-        cloudflare_bypass = CloudflareBypass(browser_path=path)
-
     else:
         print("The path does not exist")
-        cloudflare_bypass = CloudflareBypass(browser_path=None)
 
     # co = ChromiumOptions().set_browser_path(path).auto_port()
     # page1 = ChromiumPage(co)
+    cloudflare_bypass = CloudflareBypass(browser_path=path)
     page1 = cloudflare_bypass.driver
     url = "https://ahrefs.com/keyword-difficulty/"
 

@@ -1,20 +1,15 @@
 "use client";
+
 import TodoForm from "@/components/TodoForm";
 import TodoItem from "@/components/TodoItem";
 import { useStore } from "@/store";
 import { useEffect } from "react";
 import Link from "next/link"; // Import the Link component
-import { useRouter } from "next/navigation";
 
 const Home: React.FC = () => {
   const todos = useStore((state) => state.todos);
   const fetchTodos = useStore((state) => state.fetchTodos);
-  const router = useRouter();
 
-  const handleAhrefClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    router.push("/ahref"); // Navigate to the Ahref page
-  };
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -28,9 +23,12 @@ const Home: React.FC = () => {
       ) : (
         todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       )}
-      {/* Link to the new Ahref Kd Api page */}
-      <Link href="/ahref">Settings</Link>
     </div>
+
+    <div><h1>ahref</>
+    
+            <Link href="/ahref">Settings</Link>
+</div>
   );
 };
 
