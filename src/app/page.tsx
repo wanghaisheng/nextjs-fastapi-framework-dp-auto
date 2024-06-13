@@ -29,7 +29,7 @@ const Home: React.FC = () => {
         todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       )}
       {/* Link to the new Ahref Kd Api page */}
-      <Link href="/href">Settings</Link>
+      <Link href="/ahref">Settings</Link>
     </div>
   );
 };

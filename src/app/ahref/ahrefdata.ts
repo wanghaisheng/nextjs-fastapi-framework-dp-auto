@@ -11,6 +11,10 @@ type AhrefsState = {
         fetchAhrefs: (keywords: string) => void
 }
 
+const URL = process.env.NEXT_PUBLIC_VERCEL_URL
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`
+        : "http://localhost:3000/api"
+
 export const useAhrefsStore = create<AhrefsState>((set) => ({
         ahrefData: [],
         ahrefError: null,
