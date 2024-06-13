@@ -1,3 +1,4 @@
+"use client";
 import TodoForm from "@/components/TodoForm";
 import TodoItem from "@/components/TodoItem";
 import { useStore } from "@/store";
