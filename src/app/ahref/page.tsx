@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useAhrefsStore } from "./ahrefdata";
-import styles from "./Ahref.css"; // Adjust the file path as necessary
+
 const Ahref = () => {
   const [keywords, setKeywords] = useState(""); // State to store the search keywords
   const { ahrefData, ahrefError, fetchAhrefs } = useAhrefsStore(); // Destructure state and actions
@@ -17,9 +17,8 @@ const Ahref = () => {
   };
 
   return (
-    <div>
-      {/* Form for submitting search keywords */}
-      <form onSubmit={handleSubmit} className="result-container">
+    <div className="p-4 max-w-sm mx-auto">
+      <form onSubmit={handleSubmit} className="flex flex-col">
         <label htmlFor="keywords" className="sr-only">
           Enter Keywords:
         </label>
@@ -29,32 +28,33 @@ const Ahref = () => {
           value={keywords}
           onChange={(e) => setKeywords(e.target.value)}
           placeholder="Type keywords here"
-          className="input-field"
+          className="p-2 border border-gray-300 rounded-md mb-4"
         />
-        <button type="submit" className="submit-btn">
+        <button
+          type="submit"
+          className="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        >
           Search
         </button>
       </form>
 
-      {ahrefError && <div className="error">Error: {ahrefError}</div>}
+      {ahrefError && (
+        <div className="text-red-600 mt-2">Error: {ahrefError}</div>
+      )}
 
       {ahrefData && ahrefData.length > 0 && (
-        <div>
-          {/* Render the Ahrefs data */}
-          {ahrefData.map((data, index) => {
-            // Ensure you have a unique identifier for each data item
-            const uniqueKey = `ahref_${index}`; // Replace with a more unique key if possible
-            return (
-              <div key={uniqueKey} className="result-item">
-                {/* Replace with the actual property you want to display */}
-                {data.keyword} - KD: {data.kd} - Domain Authority: {data.des}
-              </div>
-            );
-          })}
+        <div className="mt-4">
+          {ahrefData.map((data, index) => (
+            <div
+              key={`ahref_${index}`}
+              className="border border-gray-300 p-2 mb-2 rounded-md"
+            >
+              {data.keyword} - KD: {data.kd} - Domain Authority: {data.des}
+            </div>
+          ))}
         </div>
       )}
     </div>
   );
 };
-
 export default Ahref;
