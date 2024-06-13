@@ -31,7 +31,7 @@ export const useAhrefsStore = create<AhrefsState>((set) => ({
                         const data: AhrefsData[] = await response.json()
                         set((state) => ({ ahrefData: data }))
 
-                } catch (error: unknown) { // Type the error as 'unknown' and cast when using properties
+                } catch (error) { // Type the error as 'unknown' and cast when using properties
                         if (error instanceof Error) {
                                 set((state) => ({ ahrefError: error.message }))
                         } else {
