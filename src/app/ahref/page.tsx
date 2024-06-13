@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useAhrefsStore } from "./ahrefdata";
-
+import styles from "./Ahref.css"; // Adjust the file path as necessary
 const Ahref = () => {
   const [keywords, setKeywords] = useState(""); // State to store the search keywords
   const { ahrefData, ahrefError, fetchAhrefs } = useAhrefsStore(); // Destructure state and actions
@@ -19,16 +19,21 @@ const Ahref = () => {
   return (
     <div>
       {/* Form for submitting search keywords */}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="keywords">Enter Keywords:</label>
+      <form onSubmit={handleSubmit} className="result-container">
+        <label htmlFor="keywords" className="sr-only">
+          Enter Keywords:
+        </label>
         <input
           id="keywords"
           type="text"
           value={keywords}
           onChange={(e) => setKeywords(e.target.value)}
           placeholder="Type keywords here"
+          className="input-field"
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="submit-btn">
+          Search
+        </button>
       </form>
 
       {ahrefError && <div className="error">Error: {ahrefError}</div>}
@@ -40,7 +45,7 @@ const Ahref = () => {
             // Ensure you have a unique identifier for each data item
             const uniqueKey = `ahref_${index}`; // Replace with a more unique key if possible
             return (
-              <div key={uniqueKey}>
+              <div key={uniqueKey} className="result-item">
                 {/* Replace with the actual property you want to display */}
                 {data.keyword} - KD: {data.kd} - Domain Authority: {data.des}
               </div>
