@@ -1,33 +1,24 @@
 from typing import Union
 
-from fastapi import FastAPI, Body
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from .cf_bypass import CloudflareBypass
-import os
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
-
-origins = [
-    "*",
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-    "http://localhost:8000",
-    "https://nextjs-fastapi-framework-dp-auto.vercel.app/",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 @app.get("/api/healthchecker")
 def healthchecker():
     return {"status": "success", "message": "Integrate FastAPI Framework with Next.js"}
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class TodoCreate(BaseModel):
@@ -64,14 +55,12 @@ def create_todo_item(todo: TodoCreate):
     todos.append(new_todo)
     return new_todo
 
-
 # Route to get all todo items
 
 
 @app.get("/api/todos")
 def get_all_todo_items():
     return todos
-
 
 # Route to get a specific todo item by ID
 
@@ -83,7 +72,6 @@ def get_todo_item(todo_id: int):
             return todo
     return {"error": "Todo item not found"}
 
-
 # Route to update a specific todo item by ID
 
 
@@ -92,12 +80,9 @@ def update_todo_item(todo_id: int, todo: TodoUpdate):
     for todo_item in todos:
         if todo_item.id == todo_id:
             todo_item.title = todo.title if todo.title is not None else todo_item.title
-            todo_item.completed = (
-                todo.completed if todo.completed is not None else todo_item.completed
-            )
+            todo_item.completed = todo.completed if todo.completed is not None else todo_item.completed
             return todo_item
     return {"error": "Todo item not found"}
-
 
 # Route to delete a specific todo item by ID
 
@@ -109,60 +94,3 @@ def delete_todo_item(todo_id: int):
             del todos[i]
             return {"message": "Todo item deleted"}
     return {"error": "Todo item not found"}
-
-
-# Your route now expects JSON body with 'keywords' field
-@app.post("/api/ahref/kd/")
-async def getAhrefKD(keyword: str = Body(...)):  # Use Body to get the
-    if keyword:
-        path = "/tmp/chromium"
-        cloudflare_bypass = None
-        # Try each path in sequence until a valid one is found
-
-        # Check if the path exists
-        if os.path.exists(path):
-            print("tmp is found")
-            # List all files and directories in the path
-            files_and_dirs = os.listdir(path)
-
-            # Filter out directories and only list files
-            files = [f for f in files_and_dirs if os.path.isfile(os.path.join(path, f))]
-
-            # Print all files
-            for file in files:
-                print(file)
-            cloudflare_bypass = CloudflareBypass(browser_path=path)
-
-        else:
-            print("The path does not exist")
-            cloudflare_bypass = CloudflareBypass(browser_path=None)
-
-        # co = ChromiumOptions().set_browser_path(path).auto_port()
-        # page1 = ChromiumPage(co)
-        page1 = cloudflare_bypass.driver
-        url = "https://ahrefs.com/keyword-difficulty/"
-        if "," in keyword:
-            keywords = keyword.split(",")
-        else:
-            keywords = [keyword]
-        datas = []
-        if keyword in keywords:
-            page1.get(url)
-            # keyword = "remini.ai"
-            page1.ele("@placeholder=Enter keyword").input(keyword)
-
-            # 点击登录按钮
-            page1.ele("text=Check keyword").click()
-            cookies = cloudflare_bypass.bypass(url)
-
-            kd = page1.ele(".css-16bvajg-chartValue").text
-
-            kds = page1.ele(".css-1wi5h2-row css-1crciv5 css-6rbp9c").text
-            #     print(kd)
-            #     print(kds)
-            data = {"keyword": keyword, "kd": kd, "des": kds}
-            datas.append(data)
-
-            return data
-    else:
-        return []

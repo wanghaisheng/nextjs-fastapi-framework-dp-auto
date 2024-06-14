@@ -42,9 +42,9 @@ __pycache__
 
 # Environments
 
-# .env
+.env
 .venv
-.env/
+env/
 venv/
 ENV/
 env.bak/
