@@ -82,6 +82,7 @@ export default function Home() {
   if (error) {
     return <div>Oops... {error.message}</div>;
   }
+  const userName = user?.name || "Guest"; // Provide a default value
 
   if (isAuthenticated) {
     return (
