@@ -28,7 +28,7 @@ const Ahref = () => {
     // Split the input string by commas to get an array of keywords
     const keywordArray = trimmedKeywords.split(/,\s*/);
     console.log(`Your input is: ${keywordArray}`);
-    fetchAhrefs(keywordArray); // Pass the array of keywords
+    fetchAhrefs(trimmedKeywords); // Pass the array of keywords
   };
   return (
     <div className="p-4 max-w-sm mx-auto">
