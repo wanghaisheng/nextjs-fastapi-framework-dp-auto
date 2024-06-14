@@ -5,17 +5,31 @@ import { useAhrefsStore } from "./ahrefdata";
 const Ahref = () => {
   const [keywords, setKeywords] = useState(""); // State to store the search keywords
   const { ahrefData, ahrefError, fetchAhrefs } = useAhrefsStore(); // Destructure state and actions
-
-  // ... (other logic such as useEffect for fetching data)
+  const [inputHint, setInputHint] = useState(""); // State to store input hints
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    if (keywords) {
-      fetchAhrefs(keywords); // Call the fetchAhrefs action with the entered keywords
-    }
-    setKeywords(""); // Optionally reset the keywords input after submission
-  };
+    e.preventDefault();
+    const trimmedKeywords = keywords.trim();
 
+    // Check if the input is empty or exceeds the maximum length
+    if (trimmedKeywords === "") {
+      setInputHint("Please enter some keywords.");
+      return;
+    } else if (trimmedKeywords.length > MAX_KEYWORD_LENGTH) {
+      setInputHint(
+        `Please reduce the length of keywords. Maximum allowed is ${MAX_KEYWORD_LENGTH} characters.`
+      );
+      return;
+    }
+
+    // Clear the hint when the input is valid
+    setInputHint("");
+
+    // Split the input string by commas to get an array of keywords
+    const keywordArray = trimmedKeywords.split(/,\s*/);
+    console.log(`Your input is: ${keywordArray}`);
+    fetchAhrefs(keywordArray); // Pass the array of keywords
+  };
   return (
     <div className="p-4 max-w-sm mx-auto">
       <form onSubmit={handleSubmit} className="flex flex-col">
@@ -37,24 +51,32 @@ const Ahref = () => {
           Search
         </button>
       </form>
-
       {ahrefError && (
         <div className="text-red-600 mt-2">Error: {ahrefError}</div>
       )}
 
       {ahrefData && ahrefData.length > 0 && (
-        <div className="mt-4">
-          {ahrefData.map((data, index) => (
-            <div
-              key={`ahref_${index}`}
-              className="border border-gray-300 p-2 mb-2 rounded-md"
-            >
-              {data.keyword} - KD: {data.kd} - Domain Authority: {data.des}
-            </div>
-          ))}
-        </div>
+        <table className="min-w-full mt-4">
+          <thead>
+            <tr className="border-b">
+              <th className="px-4 py-2">Keyword</th>
+              <th className="px-4 py-2">KD</th>
+              <th className="px-4 py-2">Domain Authority (DA)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ahrefData.map((data, index) => (
+              <tr key={`ahref_${index}`} className="border-b">
+                <td className="px-4 py-2">{data.keyword}</td>
+                <td className="px-4 py-2">{data.kd}</td>
+                <td className="px-4 py-2">{data.des}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
 };
+
 export default Ahref;
