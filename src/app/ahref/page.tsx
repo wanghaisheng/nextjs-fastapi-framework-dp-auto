@@ -6,7 +6,7 @@ const Ahref = () => {
   const [keywords, setKeywords] = useState(""); // State to store the search keywords
   const { ahrefData, ahrefError, fetchAhrefs } = useAhrefsStore(); // Destructure state and actions
   const [inputHint, setInputHint] = useState(""); // State to store input hints
-
+  const MAX_KEYWORD_LENGTH = 100;
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmedKeywords = keywords.trim();
