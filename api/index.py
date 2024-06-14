@@ -14,10 +14,9 @@ def healthchecker():
     return {"status": "success", "message": "Integrate FastAPI Framework with Next.js"}
 
 
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+NEXT_PUBLIC_VERCEL_URL = "https://nextjs-fastapi-framework-dp-auto.vercel.app"
+
+origins = ["http://localhost:3000", "http://127.0.0.1:3000", NEXT_PUBLIC_VERCEL_URL]
 
 app.add_middleware(
     CORSMiddleware,
