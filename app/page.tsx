@@ -87,7 +87,7 @@ export default function Home() {
   if (isAuthenticated) {
     return (
       <div>
-        Hello {user.name}{" "}
+        Hello {userName}{" "}
         <button
           onClick={() =>
             logout({ logoutParams: { returnTo: window.location.origin } })
