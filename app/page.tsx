@@ -48,7 +48,12 @@ export default function Home() {
 
         setUserMetadata(user_metadata);
       } catch (e) {
-        console.log(e.message);
+        if (error instanceof Error) {
+          console.log(e);
+        } else {
+          // Handle the case where error is not an instance of Error
+          console.log(e);
+        }
         const accessToken = await getAccessTokenWithPopup({
           authorizationParams: {
             audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
