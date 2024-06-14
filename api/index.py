@@ -2,7 +2,7 @@ import secure
 import uvicorn
 from api.config import settings
 from api.dependencies import validate_token
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
