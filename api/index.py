@@ -87,6 +87,8 @@ def auth_me():
 async def getAhrefKD(keyword: str = Body(...)):  # Use Body to get the
     if keyword:
         path = "/tmp/chromium"
+        path = "/vercel/.cache/puppeteer/chrome/linux-123.0.6312.86"
+
         cloudflare_bypass = None
         # Try each path in sequence until a valid one is found
 
