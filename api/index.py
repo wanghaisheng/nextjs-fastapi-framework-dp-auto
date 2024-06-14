@@ -14,6 +14,20 @@ def healthchecker():
     return {"status": "success", "message": "Integrate FastAPI Framework with Next.js"}
 
 
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 class TodoCreate(BaseModel):
     title: str
 
@@ -137,17 +151,3 @@ async def getAhrefKD(keyword: str):
     #     print(kds)
 
     return {"keyword": keyword, "kd": kd, "des": kds}
-
-
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
