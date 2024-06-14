@@ -24,11 +24,7 @@ const Ahref = () => {
 
     // Clear the hint when the input is valid
     setInputHint("");
-
-    // Split the input string by commas to get an array of keywords
-    const keywordArray = trimmedKeywords.split(/,\s*/);
-    console.log(`Your input is: ${keywordArray}`);
-    fetchAhrefs(trimmedKeywords); // Pass the array of keywords
+    await fetchAhrefs(trimmedKeywords); // Pass the array of keywords
   };
   return (
     <div className="p-4 max-w-sm mx-auto">

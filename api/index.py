@@ -113,7 +113,7 @@ def delete_todo_item(todo_id: int):
 
 # Your route now expects JSON body with 'keywords' field
 @app.post("/api/ahref/kd/")
-def getAhrefKD(keyword: str = Body(...)):  # Use Body to get the
+async def getAhrefKD(keyword: str = Body(...)):  # Use Body to get the
     if keyword:
         path = "/tmp/chromium"
         cloudflare_bypass = None
